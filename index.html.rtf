@@ -1,0 +1,846 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>Grammar Challenge: Adjectives & Adverbs</title>\
+    <style>\
+        :root \{\
+            --primary: #1e40af;\
+            --primary-hover: #1d4ed8;\
+            --primary-light: #eff6ff;\
+            --text-dark: #1f2937;\
+            --text-muted: #4b5563;\
+            --bg-light: #f8fafc;\
+            --card-bg: #ffffff;\
+            --border-color: #e2e8f0;\
+            --correct: #16a34a;\
+            --correct-bg: #f0fdf4;\
+            --incorrect: #dc2626;\
+            --incorrect-bg: #fef2f2;\
+        \}\
+\
+        * \{\
+            box-sizing: border-box;\
+            margin: 0;\
+            padding: 0;\
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;\
+        \}\
+\
+        body \{\
+            background-color: var(--bg-light);\
+            color: var(--text-dark);\
+            display: flex;\
+            justify-content: center;\
+            align-items: center;\
+            min-height: 100vh;\
+            padding: 20px;\
+        \}\
+\
+        .container \{\
+            width: 100%;\
+            max-width: 800px;\
+            background: var(--card-bg);\
+            border-radius: 12px;\
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);\
+            padding: 32px;\
+            border: 1px solid var(--border-color);\
+        \}\
+\
+        .hidden \{\
+            display: none !important;\
+        \}\
+\
+        /* Welcome Screen */\
+        .welcome-screen \{\
+            text-align: center;\
+        \}\
+\
+        .welcome-screen h1 \{\
+            color: var(--primary);\
+            margin-bottom: 16px;\
+            font-size: 2.25rem;\
+        \}\
+\
+        .welcome-screen p \{\
+            color: var(--text-muted);\
+            margin-bottom: 24px;\
+            line-height: 1.6;\
+            font-size: 1.1rem;\
+        \}\
+\
+        .instructions \{\
+            text-align: left;\
+            background: var(--primary-light);\
+            padding: 20px;\
+            border-radius: 8px;\
+            margin-bottom: 32px;\
+            border-left: 4px solid var(--primary);\
+        \}\
+\
+        .instructions h3 \{\
+            color: var(--primary);\
+            margin-bottom: 8px;\
+        \}\
+\
+        .instructions ul \{\
+            padding-left: 20px;\
+            color: var(--text-muted);\
+        \}\
+\
+        .instructions li \{\
+            margin-bottom: 6px;\
+        \}\
+\
+        /* Quiz Header */\
+        .quiz-header \{\
+            margin-bottom: 24px;\
+        \}\
+\
+        .progress-info \{\
+            display: flex;\
+            justify-content: space-between;\
+            align-items: center;\
+            font-weight: 600;\
+            color: var(--text-muted);\
+            margin-bottom: 8px;\
+        \}\
+\
+        .score-tracker \{\
+            background: var(--primary-light);\
+            color: var(--primary);\
+            padding: 4px 12px;\
+            border-radius: 16px;\
+            font-size: 0.9rem;\
+        \}\
+\
+        .progress-bar-container \{\
+            width: 100%;\
+            height: 10px;\
+            background-color: var(--border-color);\
+            border-radius: 5px;\
+            overflow: hidden;\
+        \}\
+\
+        .progress-bar \{\
+            height: 100%;\
+            background-color: var(--primary);\
+            width: 0%;\
+            transition: width 0.3s ease;\
+        \}\
+\
+        /* Question Screen */\
+        .question-category-wrapper \{\
+            display: flex;\
+            justify-content: space-between;\
+            align-items: center;\
+            margin-bottom: 16px;\
+        \}\
+\
+        .question-category \{\
+            display: inline-block;\
+            background: var(--primary-light);\
+            color: var(--primary);\
+            padding: 4px 12px;\
+            border-radius: 16px;\
+            font-size: 0.875rem;\
+            font-weight: 600;\
+            text-transform: uppercase;\
+            letter-spacing: 0.05em;\
+        \}\
+\
+        .question-points \{\
+            font-size: 0.875rem;\
+            font-weight: 700;\
+            color: var(--text-muted);\
+        \}\
+\
+        .instruction-text \{\
+            font-size: 1.1rem;\
+            color: var(--text-muted);\
+            margin-bottom: 8px;\
+            font-weight: 500;\
+        \}\
+\
+        .sentence-text \{\
+            font-size: 1.3rem;\
+            color: var(--text-dark);\
+            margin-bottom: 24px;\
+            padding: 16px;\
+            background-color: var(--bg-light);\
+            border-radius: 8px;\
+            border: 1px dashed var(--border-color);\
+        \}\
+\
+        .options-container \{\
+            display: flex;\
+            flex-direction: column;\
+            gap: 12px;\
+            margin-bottom: 20px;\
+        \}\
+\
+        .option-btn \{\
+            display: flex;\
+            align-items: center;\
+            padding: 16px;\
+            border: 2px solid var(--border-color);\
+            border-radius: 8px;\
+            background: var(--card-bg);\
+            cursor: pointer;\
+            transition: all 0.2s ease;\
+            font-size: 1rem;\
+            text-align: left;\
+            width: 100%;\
+        \}\
+\
+        .option-btn:hover:not(.disabled) \{\
+            border-color: var(--primary);\
+            background-color: var(--primary-light);\
+        \}\
+\
+        .option-btn.selected \{\
+            border-color: var(--primary);\
+            background-color: var(--primary-light);\
+            font-weight: 600;\
+        \}\
+\
+        .option-btn.correct \{\
+            border-color: var(--correct) !important;\
+            background-color: var(--correct-bg) !important;\
+            color: var(--correct);\
+            font-weight: bold;\
+        \}\
+\
+        .option-btn.incorrect \{\
+            border-color: var(--incorrect) !important;\
+            background-color: var(--incorrect-bg) !important;\
+            color: var(--incorrect);\
+        \}\
+\
+        .option-btn.disabled \{\
+            cursor: default;\
+        \}\
+\
+        .option-prefix \{\
+            display: flex;\
+            align-items: center;\
+            justify-content: center;\
+            width: 32px;\
+            height: 32px;\
+            border-radius: 50%;\
+            background: var(--bg-light);\
+            color: var(--text-muted);\
+            font-weight: bold;\
+            margin-right: 16px;\
+            flex-shrink: 0;\
+        \}\
+\
+        .option-btn.selected .option-prefix \{\
+            background: var(--primary);\
+            color: white;\
+        \}\
+\
+        .option-btn.correct .option-prefix \{\
+            background: var(--correct);\
+            color: white;\
+        \}\
+\
+        .option-btn.incorrect .option-prefix \{\
+            background: var(--incorrect);\
+            color: white;\
+        \}\
+\
+        /* Instant Feedback Box */\
+        .instant-feedback \{\
+            padding: 12px 16px;\
+            border-radius: 8px;\
+            margin-bottom: 24px;\
+            font-weight: 600;\
+            font-size: 1rem;\
+            display: flex;\
+            align-items: center;\
+            gap: 8px;\
+        \}\
+\
+        .instant-feedback.correct-box \{\
+            background-color: var(--correct-bg);\
+            color: var(--correct);\
+            border: 1px solid var(--correct);\
+        \}\
+\
+        .instant-feedback.incorrect-box \{\
+            background-color: var(--incorrect-bg);\
+            color: var(--incorrect);\
+            border: 1px solid var(--incorrect);\
+        \}\
+\
+        /* Controls */\
+        .controls-container \{\
+            display: flex;\
+            justify-content: space-between;\
+            gap: 16px;\
+        \}\
+\
+        .btn \{\
+            padding: 12px 24px;\
+            font-size: 1rem;\
+            font-weight: 600;\
+            border-radius: 8px;\
+            cursor: pointer;\
+            border: none;\
+            transition: background-color 0.2s ease;\
+        \}\
+\
+        .btn-primary \{\
+            background-color: var(--primary);\
+            color: white;\
+        \}\
+\
+        .btn-primary:hover \{\
+            background-color: var(--primary-hover);\
+        \}\
+\
+        .btn-secondary \{\
+            background-color: #e5e7eb;\
+            color: var(--text-dark);\
+        \}\
+\
+        .btn-secondary:hover \{\
+            background-color: #d1d5db;\
+        \}\
+\
+        .btn:disabled \{\
+            opacity: 0.5;\
+            cursor: not-allowed;\
+        \}\
+\
+        /* Results Screen */\
+        .results-summary \{\
+            text-align: center;\
+            margin-bottom: 32px;\
+            padding-bottom: 24px;\
+            border-bottom: 2px solid var(--border-color);\
+        \}\
+\
+        .score-circle \{\
+            width: 140px;\
+            height: 140px;\
+            border-radius: 50%;\
+            background: var(--primary-light);\
+            color: var(--primary);\
+            display: flex;\
+            flex-direction: column;\
+            justify-content: center;\
+            align-items: center;\
+            margin: 0 auto 20px auto;\
+            border: 4px solid var(--primary);\
+        \}\
+\
+        .score-number \{\
+            font-size: 2.2rem;\
+            font-weight: bold;\
+        \}\
+\
+        .score-percent \{\
+            font-size: 1rem;\
+            font-weight: 600;\
+        \}\
+\
+        .performance-band \{\
+            font-size: 1.5rem;\
+            font-weight: bold;\
+            color: var(--primary);\
+            margin-bottom: 8px;\
+        \}\
+\
+        .feedback-message \{\
+            color: var(--text-muted);\
+            font-size: 1.1rem;\
+        \}\
+\
+        .review-section \{\
+            margin-top: 32px;\
+        \}\
+\
+        .review-section h2 \{\
+            margin-bottom: 20px;\
+            color: var(--text-dark);\
+        \}\
+\
+        .review-item \{\
+            padding: 16px;\
+            border-radius: 8px;\
+            margin-bottom: 16px;\
+            border: 1px solid var(--border-color);\
+        \}\
+\
+        .review-item.correct \{\
+            background-color: var(--correct-bg);\
+            border-color: var(--correct);\
+        \}\
+\
+        .review-item.incorrect \{\
+            background-color: var(--incorrect-bg);\
+            border-color: var(--incorrect);\
+        \}\
+\
+        .review-question \{\
+            font-weight: 600;\
+            margin-bottom: 8px;\
+        \}\
+\
+        .review-answer-info \{\
+            font-size: 0.95rem;\
+            margin-top: 4px;\
+        \}\
+\
+        .text-correct \{\
+            color: var(--correct);\
+            font-weight: 600;\
+        \}\
+\
+        .text-incorrect \{\
+            color: var(--incorrect);\
+            font-weight: 600;\
+        \}\
+\
+        /* Modal */\
+        .modal-overlay \{\
+            position: fixed;\
+            top: 0;\
+            left: 0;\
+            right: 0;\
+            bottom: 0;\
+            background: rgba(0, 0, 0, 0.5);\
+            display: flex;\
+            justify-content: center;\
+            align-items: center;\
+            z-index: 1000;\
+        \}\
+\
+        .modal \{\
+            background: white;\
+            padding: 24px;\
+            border-radius: 8px;\
+            max-width: 400px;\
+            width: 90%;\
+            text-align: center;\
+        \}\
+\
+        .modal h3 \{\
+            margin-bottom: 12px;\
+        \}\
+\
+        .modal p \{\
+            margin-bottom: 20px;\
+            color: var(--text-muted);\
+        \}\
+\
+        .modal-buttons \{\
+            display: flex;\
+            gap: 12px;\
+            justify-content: center;\
+        \}\
+\
+        @media (max-width: 600px) \{\
+            .container \{\
+                padding: 20px;\
+            \}\
+            .controls-container \{\
+                flex-direction: column-reverse;\
+            \}\
+            .btn \{\
+                width: 100%;\
+            \}\
+        \}\
+    </style>\
+</head>\
+<body>\
+\
+    <div class="container">\
+        <!-- Welcome Screen -->\
+        <div id="welcome-screen" class="welcome-screen">\
+            <h1>Grammar Challenge: Adjectives & Adverbs</h1>\
+            <p>Test and refine your knowledge with instant feedback for each question.</p>\
+            \
+            <div class="instructions">\
+                <h3>Quiz Information:</h3>\
+                <ul>\
+                    <li><strong>Total Questions:</strong> 50</li>\
+                    <li><strong>Scoring:</strong> 1 Mark per question (Total: 50 Marks)</li>\
+                    <li><strong>Coverage:</strong>\
+                        <ul>\
+                            <li>Questions 1\'9613: Adjectives</li>\
+                            <li>Questions 14\'9626: Adverbs</li>\
+                            <li>Questions 27\'9638: Adjectival Phrases</li>\
+                            <li>Questions 39\'9650: Adverbial Phrases</li>\
+                        </ul>\
+                    </li>\
+                    <li><strong>Instant Feedback:</strong> You will see whether your answer is correct as soon as you select an option.</li>\
+                </ul>\
+            </div>\
+\
+            <button id="start-btn" class="btn btn-primary" style="font-size: 1.2rem; padding: 16px 32px;">Start Quiz</button>\
+        </div>\
+\
+        <!-- Quiz Screen -->\
+        <div id="quiz-screen" class="hidden">\
+            <div class="quiz-header">\
+                <div class="progress-info">\
+                    <span id="question-counter">Question 1 of 50</span>\
+                    <span id="score-tracker" class="score-tracker">Score: 0 / 50</span>\
+                </div>\
+                <div class="progress-bar-container">\
+                    <div id="progress-bar" class="progress-bar"></div>\
+                </div>\
+            </div>\
+\
+            <div class="question-container">\
+                <div class="question-category-wrapper">\
+                    <span id="question-category" class="question-category">Category</span>\
+                    <span class="question-points">[ Mark: 1 ]</span>\
+                </div>\
+                <div id="instruction-text" class="instruction-text">Instruction goes here</div>\
+                <div id="sentence-text" class="sentence-text">Sentence goes here</div>\
+                \
+                <div id="options-container" class="options-container">\
+                    <!-- Options injected by JS -->\
+                </div>\
+\
+                <div id="instant-feedback" class="instant-feedback hidden"></div>\
+            </div>\
+\
+            <div class="controls-container">\
+                <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>\
+                <button id="next-btn" class="btn btn-primary">Next</button>\
+                <button id="submit-btn" class="btn btn-primary hidden" style="background-color: var(--correct);">Submit Quiz</button>\
+            </div>\
+        </div>\
+\
+        <!-- Results Screen -->\
+        <div id="results-screen" class="hidden">\
+            <div class="results-summary">\
+                <h1>Quiz Results</h1>\
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Here is your final score summary:</p>\
+                \
+                <div class="score-circle">\
+                    <span id="score-number" class="score-number">0/50</span>\
+                    <span id="score-percent" class="score-percent">0%</span>\
+                </div>\
+\
+                <div id="performance-band" class="performance-band">Performance Band</div>\
+                <div id="feedback-message" class="feedback-message">Feedback text goes here.</div>\
+\
+                <button id="restart-btn" class="btn btn-primary" style="margin-top: 24px;">Try Again</button>\
+            </div>\
+\
+            <div class="review-section">\
+                <h2>Detailed Review</h2>\
+                <div id="review-container">\
+                    <!-- Review items injected by JS -->\
+                </div>\
+            </div>\
+        </div>\
+    </div>\
+\
+    <!-- Unanswered Questions Confirmation Modal -->\
+    <div id="confirmation-modal" class="modal-overlay hidden">\
+        <div class="modal">\
+            <h3>Unanswered Questions</h3>\
+            <p id="modal-text">You have unanswered questions. Are you sure you want to submit?</p>\
+            <div class="modal-buttons">\
+                <button id="modal-cancel" class="btn btn-secondary">Go Back</button>\
+                <button id="modal-confirm" class="btn btn-primary">Submit Anyway</button>\
+            </div>\
+        </div>\
+    </div>\
+\
+    <script>\
+        const questions = [\
+            // ADJECTIVES (1-13)\
+            \{ category: "Adjective", instruction: "Identify the adjective modifying a noun or pronoun in this sentence:", sentence: "The exhausted students completed the challenging assignment late at night.", options: ["Exhausted", "Completed", "Late", "Night"], correct: 0 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective in the following sentence:", sentence: "The pristine beach attracted thousands of enthusiastic tourists during the summer.", options: ["Attracted", "Pristine", "Thousands", "During"], correct: 1 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective modifying the noun 'solution':", sentence: "After hours of deliberation, the committee proposed an ingenious solution to the problem.", options: ["Deliberation", "Proposed", "Ingenious", "Problem"], correct: 2 \},\
+            \{ category: "Adjective", instruction: "Identify the predicate adjective in the sentence:", sentence: "Despite the long journey and rough weather, the travelers remained cheerful.", options: ["Journey", "Rough", "Travelers", "Cheerful"], correct: 3 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective in the following sentence:", sentence: "She wore a stunning silver necklace that caught everyone's attention.", options: ["Stunning", "Wore", "Caught", "Attention"], correct: 0 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective that describes the atmospheric condition:", sentence: "A humid breeze swept across the coastal town before the torrential rain started.", options: ["Swept", "Humid", "Across", "Started"], correct: 1 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective in the sentence:", sentence: "The ancient manuscript revealed secrets that historians had sought for decades.", options: ["Revealed", "Secrets", "Ancient", "Decades"], correct: 2 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective modifying the noun 'architecture':", sentence: "The city is famous for its breathtaking modern architecture.", options: ["Famous", "Its", "Modern", "Architecture"], correct: 2 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective describing the sound:", sentence: "A piercing shriek echoed through the dark, abandoned corridor.", options: ["Piercing", "Echoed", "Through", "Corridor"], correct: 0 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective in the sentence:", sentence: "The intricate design on the porcelain vase impressed the art collectors.", options: ["Design", "Intricate", "Impressed", "Collectors"], correct: 1 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective modifying the pronoun 'they':", sentence: "Although they were weary, the hikers pressed on toward the summit.", options: ["Hikers", "Pressed", "Weary", "Summit"], correct: 2 \},\
+            \{ category: "Adjective", instruction: "Identify the adjective describing the debate:", sentence: "The candidate delivered a persuasive speech during the fierce debate.", options: ["Candidate", "Delivered", "Persuasive", "Fierce"], correct: 3 \},\
+            \{ category: "Adjective", instruction: "Identify the proper adjective in the sentence:", sentence: "We enjoyed traditional Italian cuisine at the new restaurant downtown.", options: ["Traditional", "Italian", "Cuisine", "Downtown"], correct: 1 \},\
+\
+            // ADVERBS (14-26)\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying the verb in the sentence:", sentence: "The choir sang beautifully during the annual holiday concert.", options: ["Choir", "Beautifully", "Annual", "Concert"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying an adjective:", sentence: "The test was extremely difficult, but most students managed to pass.", options: ["Extremely", "Difficult", "Most", "Pass"], correct: 0 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying another adverb:", sentence: "The athlete ran quite fast and broke the school record.", options: ["Athlete", "Quite", "Fast", "Record"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb expressing time:", sentence: "We will depart tomorrow for our research trip in the mountains.", options: ["Depart", "Tomorrow", "Research", "Mountains"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb in the following sentence:", sentence: "The doctor carefully examined the patient's medical records.", options: ["Doctor", "Carefully", "Examined", "Medical"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying the action verb:", sentence: "The suspect looked around nervously before entering the building.", options: ["Suspect", "Nervously", "Entering", "Building"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb in the following sentence:", sentence: "She seldom misses a lecture because she values her education immensely.", options: ["Seldom", "Lecture", "Values", "Education"], correct: 0 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying the adjective 'accurate':", sentence: "His predictions about the economic trends were remarkably accurate.", options: ["Predictions", "Economic", "Remarkably", "Accurate"], correct: 2 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb indicating place:", sentence: "The children played outside while their parents prepared dinner.", options: ["Children", "Outside", "Parents", "Dinner"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb in this sentence:", sentence: "The fire spread rapidly through the dry timber.", options: ["Fire", "Spread", "Rapidly", "Dry"], correct: 2 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying the verb 'works':", sentence: "Marcus diligently works on his assignment every single afternoon.", options: ["Diligently", "Works", "Single", "Afternoon"], correct: 0 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb in the following sentence:", sentence: "The speaker spoke too softly for the audience in the back row to hear.", options: ["Spoke", "Too", "Audience", "Back"], correct: 1 \},\
+            \{ category: "Adverb", instruction: "Identify the adverb modifying the main verb:", sentence: "The security system automatically locks all exterior doors at midnight.", options: ["Security", "Automatically", "Exterior", "Midnight"], correct: 1 \},\
+\
+            // ADJECTIVAL PHRASES (27-38)\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'detective':", sentence: "The detective with years of experience solved the mysterious case quickly.", options: ["with years of experience", "solved the mysterious case", "the mysterious case quickly", "years of experience solved"], correct: 0 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'house':", sentence: "The old house at the end of the street has been abandoned for decades.", options: ["The old house", "at the end of the street", "has been abandoned", "for decades"], correct: 1 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'book':", sentence: "The book covered in dust sat undisturbed on the top shelf.", options: ["covered in dust", "sat undisturbed", "on the top shelf", "The book covered"], correct: 0 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'students':", sentence: "Students interested in environmental science should apply for the summer internship.", options: ["Students interested", "interested in environmental science", "apply for the summer", "for the summer internship"], correct: 1 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'painting':", sentence: "The oil painting hanging in the main gallery was created in the seventeenth century.", options: ["hanging in the main gallery", "was created in", "in the seventeenth century", "The oil painting"], correct: 0 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'car':", sentence: "The sports car parked outside the restaurant belongs to the head chef.", options: ["The sports car", "parked outside the restaurant", "belongs to the", "the head chef"], correct: 1 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'gift':", sentence: "A gift wrapped in gold foil was left on the front porch.", options: ["wrapped in gold foil", "was left on", "on the front porch", "A gift wrapped"], correct: 0 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'woman':", sentence: "The woman sitting near the window appeared deeply lost in thought.", options: ["The woman sitting", "sitting near the window", "appeared deeply lost", "lost in thought"], correct: 1 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'cake':", sentence: "The delicious chocolate cake topped with fresh berries was consumed in minutes.", options: ["topped with fresh berries", "was consumed in minutes", "delicious chocolate cake", "in minutes"], correct: 0 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'bridge':", sentence: "The wooden bridge across the rushing river looked unsafe for heavy vehicles.", options: ["The wooden bridge", "across the rushing river", "looked unsafe for", "heavy vehicles"], correct: 1 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'leader':", sentence: "A leader full of courage and wisdom inspires confidence during a crisis.", options: ["full of courage and wisdom", "inspires confidence during", "during a crisis", "A leader full"], correct: 0 \},\
+            \{ category: "Adjectival Phrase", instruction: "Identify the complete adjectival phrase modifying 'trees':", sentence: "The oak trees lining the avenue were planted over a hundred years ago.", options: ["The oak trees", "lining the avenue", "were planted over", "a hundred years ago"], correct: 1 \},\
+\
+            // ADVERBIAL PHRASES (39-50)\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase showing where the event took place:", sentence: "The scientists conducted their research in the deep uncharted cavern.", options: ["in the deep uncharted cavern", "conducted their research", "their research in", "the deep uncharted cavern"], correct: 0 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase showing manner:", sentence: "She explained the complex quantum physics theory with remarkable clarity.", options: ["explained the complex", "quantum physics theory", "with remarkable clarity", "the complex quantum physics"], correct: 2 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase showing time:", sentence: "Before the sun rose over the horizon, the fishermen had set sail.", options: ["Before the sun rose over the horizon", "over the horizon", "the fishermen had", "had set sail"], correct: 0 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase indicating reason or purpose:", sentence: "The athlete trained rigorously every day to break the world record.", options: ["trained rigorously", "every day", "to break the world record", "rigorously every day"], correct: 2 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase modifying 'drove':", sentence: "They drove through the storm-damaged mountain pass with extreme caution.", options: ["through the storm-damaged mountain pass", "with extreme caution", "drove through the", "storm-damaged mountain pass"], correct: 1 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase modifying 'arrived':", sentence: "The package arrived at the main office early this morning.", options: ["at the main office", "early this morning", "arrived at the", "the main office"], correct: 0 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase modifying 'fought':", sentence: "The firefighters fought the blaze with immense determination.", options: ["fought the blaze", "the blaze with", "with immense determination", "immense determination"], correct: 2 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase indicating time:", sentence: "During the intermission between acts, audience members rushed to the lobby.", options: ["During the intermission between acts", "between acts", "audience members rushed", "to the lobby"], correct: 0 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase modifying 'screamed':", sentence: "The audience screamed with excitement when the headline band walked onto the stage.", options: ["screamed with excitement", "with excitement", "when the headline band", "onto the stage"], correct: 1 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase indicating place:", sentence: "The lost puppy hid under the wooden porch during the thunderstorm.", options: ["under the wooden porch", "during the thunderstorm", "The lost puppy hid", "hid under the"], correct: 0 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase modifying 'studied':", sentence: "The students studied in the quiet library until midnight.", options: ["in the quiet library", "until midnight", "in the quiet library until midnight", "studied in the quiet"], correct: 2 \},\
+            \{ category: "Adverbial Phrase", instruction: "Identify the complete adverbial phrase indicating manner:", sentence: "The veteran diplomat handled the delicate negotiation in a professional manner.", options: ["handled the delicate negotiation", "the delicate negotiation", "in a professional manner", "a professional manner"], correct: 2 \}\
+        ];\
+\
+        let currentQuestionIdx = 0;\
+        let userAnswers = new Array(questions.length).fill(null);\
+\
+        // DOM Elements\
+        const welcomeScreen = document.getElementById('welcome-screen');\
+        const quizScreen = document.getElementById('quiz-screen');\
+        const resultsScreen = document.getElementById('results-screen');\
+        \
+        const startBtn = document.getElementById('start-btn');\
+        const prevBtn = document.getElementById('prev-btn');\
+        const nextBtn = document.getElementById('next-btn');\
+        const submitBtn = document.getElementById('submit-btn');\
+        const restartBtn = document.getElementById('restart-btn');\
+\
+        const questionCounter = document.getElementById('question-counter');\
+        const scoreTracker = document.getElementById('score-tracker');\
+        const progressBar = document.getElementById('progress-bar');\
+        \
+        const questionCategory = document.getElementById('question-category');\
+        const instructionText = document.getElementById('instruction-text');\
+        const sentenceText = document.getElementById('sentence-text');\
+        const optionsContainer = document.getElementById('options-container');\
+        const instantFeedback = document.getElementById('instant-feedback');\
+\
+        const modal = document.getElementById('confirmation-modal');\
+        const modalCancel = document.getElementById('modal-cancel');\
+        const modalConfirm = document.getElementById('modal-confirm');\
+        const modalText = document.getElementById('modal-text');\
+\
+        // Event Listeners\
+        startBtn.addEventListener('click', startQuiz);\
+        prevBtn.addEventListener('click', showPreviousQuestion);\
+        nextBtn.addEventListener('click', showNextQuestion);\
+        submitBtn.addEventListener('click', attemptSubmit);\
+        restartBtn.addEventListener('click', restartQuiz);\
+\
+        modalCancel.addEventListener('click', () => modal.classList.add('hidden'));\
+        modalConfirm.addEventListener('click', () => \{\
+            modal.classList.add('hidden');\
+            calculateAndShowResults();\
+        \});\
+\
+        function startQuiz() \{\
+            welcomeScreen.classList.add('hidden');\
+            quizScreen.classList.remove('hidden');\
+            currentQuestionIdx = 0;\
+            loadQuestion();\
+        \}\
+\
+        function calculateCurrentScore() \{\
+            return userAnswers.reduce((score, ans, idx) => \{\
+                return ans === questions[idx].correct ? score + 1 : score;\
+            \}, 0);\
+        \}\
+\
+        function loadQuestion() \{\
+            const q = questions[currentQuestionIdx];\
+            const answered = userAnswers[currentQuestionIdx] !== null;\
+            \
+            // Progress Header\
+            questionCounter.textContent = `Question $\{currentQuestionIdx + 1\} of $\{questions.length\}`;\
+            scoreTracker.textContent = `Score: $\{calculateCurrentScore()\} / $\{questions.length\} Marks`;\
+            const percentage = Math.round(((currentQuestionIdx + 1) / questions.length) * 100);\
+            progressBar.style.width = `$\{percentage\}%`;\
+\
+            // Question Info\
+            questionCategory.textContent = q.category;\
+            instructionText.textContent = q.instruction;\
+            sentenceText.textContent = `"$\{q.sentence\}"`;\
+\
+            // Render Options\
+            optionsContainer.innerHTML = '';\
+            instantFeedback.className = 'instant-feedback hidden';\
+\
+            const prefixes = ['A', 'B', 'C', 'D'];\
+\
+            q.options.forEach((opt, idx) => \{\
+                const optionBtn = document.createElement('button');\
+                optionBtn.className = 'option-btn';\
+\
+                if (answered) \{\
+                    optionBtn.classList.add('disabled');\
+                    if (idx === q.correct) \{\
+                        optionBtn.classList.add('correct');\
+                    \} else if (userAnswers[currentQuestionIdx] === idx) \{\
+                        optionBtn.classList.add('incorrect');\
+                    \}\
+                \} else \{\
+                    optionBtn.onclick = () => selectOption(idx);\
+                \}\
+\
+                optionBtn.innerHTML = `\
+                    <span class="option-prefix">$\{prefixes[idx]\}</span>\
+                    <span>$\{opt\}</span>\
+                `;\
+                optionsContainer.appendChild(optionBtn);\
+            \});\
+\
+            // Show Feedback if already answered\
+            if (answered) \{\
+                const isCorrect = userAnswers[currentQuestionIdx] === q.correct;\
+                instantFeedback.classList.remove('hidden');\
+                if (isCorrect) \{\
+                    instantFeedback.className = 'instant-feedback correct-box';\
+                    instantFeedback.innerHTML = `\uc0\u10003  Correct! (+1 Mark)`;\
+                \} else \{\
+                    instantFeedback.className = 'instant-feedback incorrect-box';\
+                    instantFeedback.innerHTML = `\uc0\u10007  Incorrect. Correct: $\{prefixes[q.correct]\}. $\{q.options[q.correct]\} (+0 Marks)`;\
+                \}\
+            \}\
+\
+            // Navigation Controls\
+            prevBtn.disabled = currentQuestionIdx === 0;\
+\
+            if (currentQuestionIdx === questions.length - 1) \{\
+                nextBtn.classList.add('hidden');\
+                submitBtn.classList.remove('hidden');\
+            \} else \{\
+                nextBtn.classList.remove('hidden');\
+                submitBtn.classList.add('hidden');\
+            \}\
+        \}\
+\
+        function selectOption(index) \{\
+            if (userAnswers[currentQuestionIdx] !== null) return; // Prevent changing answer after instant feedback\
+\
+            userAnswers[currentQuestionIdx] = index;\
+            loadQuestion(); // Reload to show instant state & updated score\
+        \}\
+\
+        function showPreviousQuestion() \{\
+            if (currentQuestionIdx > 0) \{\
+                currentQuestionIdx--;\
+                loadQuestion();\
+            \}\
+        \}\
+\
+        function showNextQuestion() \{\
+            if (currentQuestionIdx < questions.length - 1) \{\
+                currentQuestionIdx++;\
+                loadQuestion();\
+            \}\
+        \}\
+\
+        function attemptSubmit() \{\
+            const unansweredCount = userAnswers.filter(ans => ans === null).length;\
+            if (unansweredCount > 0) \{\
+                modalText.textContent = `You have $\{unansweredCount\} unanswered question(s). Submit anyway?`;\
+                modal.classList.remove('hidden');\
+            \} else \{\
+                calculateAndShowResults();\
+            \}\
+        \}\
+\
+        function calculateAndShowResults() \{\
+            const score = calculateCurrentScore();\
+            const percentage = Math.round((score / questions.length) * 100);\
+\
+            quizScreen.classList.add('hidden');\
+            resultsScreen.classList.remove('hidden');\
+\
+            document.getElementById('score-number').textContent = `$\{score\}/50 Marks`;\
+            document.getElementById('score-percent').textContent = `$\{percentage\}%`;\
+\
+            const bandElem = document.getElementById('performance-band');\
+            const feedbackElem = document.getElementById('feedback-message');\
+\
+            if (score >= 45) \{\
+                bandElem.textContent = "Excellent!";\
+                feedbackElem.textContent = "Outstanding mastery of adjectives, adverbs, and phrases.";\
+            \} else if (score >= 40) \{\
+                bandElem.textContent = "Very Good!";\
+                feedbackElem.textContent = "Great work! Strong command of grammar concepts.";\
+            \} else if (score >= 30) \{\
+                bandElem.textContent = "Good";\
+                feedbackElem.textContent = "Good understanding. Review missed questions for accuracy.";\
+            \} else if (score >= 20) \{\
+                bandElem.textContent = "Keep Practising";\
+                feedbackElem.textContent = "Fair effort. Re-read grammar rules and try again.";\
+            \} else \{\
+                bandElem.textContent = "More Practice Needed";\
+                feedbackElem.textContent = "Keep trying! Review the detailed answers below.";\
+            \}\
+\
+            // Detailed Review\
+            const reviewContainer = document.getElementById('review-container');\
+            reviewContainer.innerHTML = '';\
+            const prefixes = ['A', 'B', 'C', 'D'];\
+\
+            questions.forEach((q, idx) => \{\
+                const userAns = userAnswers[idx];\
+                const isCorrect = userAns === q.correct;\
+\
+                const reviewItem = document.createElement('div');\
+                reviewItem.className = `review-item $\{isCorrect ? 'correct' : 'incorrect'\}`;\
+\
+                const userAnsText = userAns !== null ? `$\{prefixes[userAns]\}. $\{q.options[userAns]\}` : "Not Answered";\
+                const correctAnsText = `$\{prefixes[q.correct]\}. $\{q.options[q.correct]\}`;\
+\
+                reviewItem.innerHTML = `\
+                    <div class="review-question">$\{idx + 1\}. $\{q.instruction\} "$\{q.sentence\}" [1 Mark]</div>\
+                    <div class="review-answer-info">\
+                        <strong>Your Answer:</strong> <span class="$\{isCorrect ? 'text-correct' : 'text-incorrect'\}">$\{userAnsText\} ($\{isCorrect ? '+1 Mark' : '0 Marks'\})</span>\
+                    </div>\
+                    $\{!isCorrect ? `<div class="review-answer-info"><strong>Correct Answer:</strong> <span class="text-correct">$\{correctAnsText\}</span></div>` : ''\}\
+                `;\
+                reviewContainer.appendChild(reviewItem);\
+            \});\
+\
+            window.scrollTo(0, 0);\
+        \}\
+\
+        function restartQuiz() \{\
+            userAnswers = new Array(questions.length).fill(null);\
+            resultsScreen.classList.add('hidden');\
+            welcomeScreen.classList.remove('hidden');\
+            window.scrollTo(0, 0);\
+        \}\
+    </script>\
+</body>\
+</html>}
